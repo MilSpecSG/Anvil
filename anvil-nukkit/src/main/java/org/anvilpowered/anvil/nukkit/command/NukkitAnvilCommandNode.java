@@ -38,6 +38,9 @@ public class NukkitAnvilCommandNode
     extends CommonAnvilCommandNode<CommandExecutor, CommandSender> {
 
     @Inject
+    private NukkitAnvilDumpCommand anvilDumpCommand;
+
+    @Inject
     private NukkitAnvilPluginsCommand anvilPluginsCommand;
 
     @Inject
@@ -61,6 +64,7 @@ public class NukkitAnvilCommandNode
     protected void loadCommands() {
         Map<List<String>, CommandExecutor> subCommands = new HashMap<>();
 
+        subCommands.put(DUMP_ALIAS, anvilDumpCommand);
         subCommands.put(PLUGINS_ALIAS, anvilPluginsCommand);
         subCommands.put(RELOAD_ALIAS, anvilReloadCommand);
         subCommands.put(REGEDIT_ALIAS, commandService.generateRoutingCommand(

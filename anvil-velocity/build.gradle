@@ -30,6 +30,12 @@ dependencies {
     annotationProcessor velocity
 }
 
+tasks.register("copyJars", Copy) {
+    dependsOn(tasks.shadowJar)
+    from(tasks.shadowJar)
+    into("C:\\Users\\Allen\\Desktop\\Velocity\\plugins")
+}
+
 shadowJar {
     String jarName = "Anvil-Velocity-${project.version}.jar"
     println "Building: " + jarName

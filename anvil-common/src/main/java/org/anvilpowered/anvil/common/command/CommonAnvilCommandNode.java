@@ -38,12 +38,15 @@ import java.util.function.Predicate;
 public abstract class CommonAnvilCommandNode<TCommandExecutor, TCommandSource>
     implements CommandNode<TCommandSource> {
 
+    protected static final List<String> DUMP_ALIAS = Collections.singletonList("dump");
     protected static final List<String> PLUGINS_ALIAS = Collections.singletonList("plugins");
     protected static final List<String> RELOAD_ALIAS = Collections.singletonList("reload");
     protected static final List<String> REGEDIT_ALIAS = Collections.singletonList("regedit");
     protected static final List<String> HELP_ALIAS = Collections.singletonList("help");
     protected static final List<String> VERSION_ALIAS = Collections.singletonList("version");
 
+    protected static final String DUMP_DESCRIPTION
+      = String.format("%s dump command", AnvilPluginInfo.name);
     protected static final String PLUGINS_DESCRIPTION
         = String.format("%s plugins command", AnvilPluginInfo.name);
     protected static final String RELOAD_DESCRIPTION
@@ -57,6 +60,7 @@ public abstract class CommonAnvilCommandNode<TCommandExecutor, TCommandSource>
      protected static final String ROOT_DESCRIPTION
         = String.format("%s root command", AnvilPluginInfo.name);
 
+    protected static final String DUMP_USAGE = "[-a|--all] [<plugin>]";
     protected static final String RELOAD_USAGE = "[-a|--all|-r|--regex] [<plugin>]";
     protected static final String REGEDIT_USAGE
         = "[cancel|select|commit|start|key] [<reg>|<env>|<key>] [info|set|unset|unstage] [<value>]";
@@ -87,11 +91,13 @@ public abstract class CommonAnvilCommandNode<TCommandExecutor, TCommandSource>
         descriptions = new HashMap<>();
         permissions = new HashMap<>();
         usages = new HashMap<>();
+        descriptions.put(DUMP_ALIAS, c -> DUMP_DESCRIPTION);
         descriptions.put(PLUGINS_ALIAS, c -> PLUGINS_DESCRIPTION);
         descriptions.put(RELOAD_ALIAS, c -> RELOAD_DESCRIPTION);
         descriptions.put(REGEDIT_ALIAS, c -> REGEDIT_DESCRIPTION);
         descriptions.put(HELP_ALIAS, c -> HELP_DESCRIPTION);
         descriptions.put(VERSION_ALIAS, c -> VERSION_DESCRIPTION);
+        usages.put(DUMP_ALIAS, c -> DUMP_USAGE);
         usages.put(RELOAD_ALIAS, c -> RELOAD_USAGE);
         usages.put(REGEDIT_ALIAS, c -> REGEDIT_USAGE);
     }

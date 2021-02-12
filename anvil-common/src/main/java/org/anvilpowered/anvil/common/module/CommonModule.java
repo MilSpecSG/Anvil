@@ -31,6 +31,7 @@ import org.anvilpowered.anvil.api.plugin.PluginInfo;
 import org.anvilpowered.anvil.api.plugin.PluginMessages;
 import org.anvilpowered.anvil.api.registry.ConfigurationService;
 import org.anvilpowered.anvil.api.registry.Registry;
+import org.anvilpowered.anvil.api.util.InfoDumpService;
 import org.anvilpowered.anvil.base.registry.BaseExtendedRegistry;
 import org.anvilpowered.anvil.common.coremember.CommonCoreMemberManager;
 import org.anvilpowered.anvil.common.coremember.CommonMongoCoreMemberRepository;
@@ -39,6 +40,7 @@ import org.anvilpowered.anvil.common.misc.CommonBindingExtensions;
 import org.anvilpowered.anvil.common.plugin.AnvilPluginInfo;
 import org.anvilpowered.anvil.common.plugin.AnvilPluginMessages;
 import org.anvilpowered.anvil.common.registry.CommonConfigurationService;
+import org.anvilpowered.anvil.common.utils.CommonInfoDumpService;
 import org.bson.types.ObjectId;
 
 @SuppressWarnings("UnstableApiUsage")
@@ -81,13 +83,16 @@ public class CommonModule<TString, TCommandSource> extends ApiCommonModule {
             Names.named("xodus")
         );
 
+        be.bind(new TypeToken<InfoDumpService<TCommandSource>>(getClass()) {
+        }, new TypeToken<CommonInfoDumpService<TString, TCommandSource>>(getClass()) {
+        });
+
         bind(CoreMemberManager.class).to(CommonCoreMemberManager.class);
 
         be.withMongoDB();
         be.withXodus();
 
-        bind(Registry.class).to(BaseExtendedRegistry.class);
+        bind(Registry.class).to(CommonConfigurationService.class);
 
-        bind(ConfigurationService.class).to(CommonConfigurationService.class);
     }
 }

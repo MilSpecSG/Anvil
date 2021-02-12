@@ -37,6 +37,9 @@ public class SpigotAnvilCommandNode
     extends CommonAnvilCommandNode<CommandExecutor, CommandSender> {
 
     @Inject
+    private SpigotAnvilDumpCommand anvilDumpCommand;
+
+    @Inject
     private SpigotAnvilPluginsCommand anvilPluginsCommand;
 
     @Inject
@@ -63,6 +66,7 @@ public class SpigotAnvilCommandNode
     protected void loadCommands() {
         Map<List<String>, CommandExecutor> subCommands = new HashMap<>();
 
+        subCommands.put(DUMP_ALIAS, anvilDumpCommand);
         subCommands.put(PLUGINS_ALIAS, anvilPluginsCommand);
         subCommands.put(RELOAD_ALIAS, anvilReloadCommand);
         subCommands.put(REGEDIT_ALIAS, commandService.generateRoutingCommand(

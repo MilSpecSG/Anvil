@@ -44,6 +44,9 @@ public class SpongeAnvilCommandNode
     extends CommonAnvilCommandNode<CommandExecutor, CommandSource> {
 
     @Inject
+    private SpongeAnvilDumpCommand anvilDumpCommand;
+
+    @Inject
     private SpongeAnvilPluginsCommand anvilPluginsCommand;
 
     @Inject
@@ -64,6 +67,8 @@ public class SpongeAnvilCommandNode
     protected void loadCommands() {
 
         Map<List<String>, CommandCallable> subCommands = new HashMap<>();
+
+        subCommands.put(DUMP_ALIAS, anvilDumpCommand);
 
         subCommands.put(PLUGINS_ALIAS, CommandSpec.builder()
             .description(Text.of(PLUGINS_DESCRIPTION))

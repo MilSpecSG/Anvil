@@ -28,6 +28,7 @@ import org.anvilpowered.anvil.bungee.AnvilBungee;
 import org.anvilpowered.anvil.bungee.command.regedit.BungeeRegistryEditCommandNode;
 import org.anvilpowered.anvil.bungee.command.regedit.BungeeRegistryEditRootCommand;
 import org.anvilpowered.anvil.common.command.CommonAnvilCommandNode;
+import org.anvilpowered.anvil.common.command.CommonAnvilDumpCommand;
 import org.anvilpowered.anvil.common.command.CommonAnvilPluginsCommand;
 import org.anvilpowered.anvil.common.command.CommonAnvilReloadCommand;
 import org.anvilpowered.anvil.common.command.CommonCallbackCommand;
@@ -39,6 +40,9 @@ import java.util.function.BiConsumer;
 
 public class BungeeAnvilCommandNode
     extends CommonAnvilCommandNode<BiConsumer<CommandSender, String[]>, CommandSender> {
+
+    @Inject
+    private CommonAnvilDumpCommand<TextComponent, CommandSender> anvilDumpCommand;
 
     @Inject
     private CommonAnvilPluginsCommand<TextComponent, CommandSender> anvilPluginsCommand;
@@ -69,6 +73,7 @@ public class BungeeAnvilCommandNode
     protected void loadCommands() {
         Map<List<String>, BiConsumer<CommandSender, String[]>> subCommands = new HashMap<>();
 
+        subCommands.put(DUMP_ALIAS, anvilDumpCommand::execute);
         subCommands.put(PLUGINS_ALIAS, (source, context) -> anvilPluginsCommand.execute(source));
         subCommands.put(RELOAD_ALIAS, anvilReloadCommand::execute);
         subCommands.put(REGEDIT_ALIAS, commandService.generateRoutingCommand(

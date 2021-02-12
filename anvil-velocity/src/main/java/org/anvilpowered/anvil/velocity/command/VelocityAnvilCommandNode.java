@@ -35,6 +35,9 @@ public class VelocityAnvilCommandNode
     extends CommonAnvilCommandNode<Command, CommandSource> {
 
     @Inject
+    private VelocityAnvilDumpCommand anvilDumpCommand;
+
+    @Inject
     private VelocityAnvilPluginsCommand anvilPluginsCommand;
 
     @Inject
@@ -63,6 +66,7 @@ public class VelocityAnvilCommandNode
     protected void loadCommands() {
         Map<List<String>, Command> subCommands = new HashMap<>();
 
+        subCommands.put(DUMP_ALIAS, anvilDumpCommand);
         subCommands.put(PLUGINS_ALIAS, anvilPluginsCommand);
         subCommands.put(RELOAD_ALIAS, anvilReloadCommand);
         subCommands.put(REGEDIT_ALIAS, commandService.generateRoutingCommand(

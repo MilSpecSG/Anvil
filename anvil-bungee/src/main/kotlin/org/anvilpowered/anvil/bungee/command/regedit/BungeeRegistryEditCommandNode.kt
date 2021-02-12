@@ -19,10 +19,10 @@
 package org.anvilpowered.anvil.bungee.command.regedit
 
 import com.google.inject.Inject
+import java.util.function.BiConsumer
 import net.md_5.bungee.api.CommandSender
 import org.anvilpowered.anvil.api.registry.Registry
 import org.anvilpowered.anvil.common.command.regedit.CommonRegistryEditCommandNode
-import java.util.function.BiConsumer
 
 class BungeeRegistryEditCommandNode @Inject constructor(
     registry: Registry
